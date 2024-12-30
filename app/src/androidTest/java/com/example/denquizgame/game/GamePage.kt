@@ -6,6 +6,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
+import com.example.denquizgame.R
 
 import org.hamcrest.Matcher
 
@@ -21,21 +22,33 @@ class GamePage(question: String, choices: List<String>) {
         containerIdMatcher = containerIdMatcher,
         containerClassTypeMatcher = classTypeMatcher
     )
-    private val choicesUiList = choices.map {
+
+    private val choicesUiIdList = listOf(
+        R.id.firstChoiseButton,
+        R.id.secondChoiseButton,
+        R.id.thirdChoiseButton,
+        R.id.forthChoiseButton
+    )
+
+    private val choicesUiList = choices.mapIndexed { index, text ->
         ChoiceUi(
-            text = it,
+            choicesUiIdList[index],
+            text = text,
             containerIdMatcher = containerIdMatcher,
             containerClassTypeMatcher = classTypeMatcher
         )
     }
 
+
     private val checkUi = ButtonUi(
+        id = R.id.checktButton,
         textResId = R.string.check,
         colorHex = "#E162EC",
         containerIdMatcher = containerIdMatcher,
         containerClassTypeMatcher = classTypeMatcher
     )
     private val nextUi = ButtonUi(
+        id = R.id.nextButton,
         textResId = R.string.next,
         colorHex = "#1B8B85",
         containerIdMatcher = containerIdMatcher,
@@ -60,8 +73,8 @@ class GamePage(question: String, choices: List<String>) {
         questionUi.assertTextVisible()
         choicesUiList.first().assertCorrectState()
         choicesUiList[1].assertIncorrectState()
-        choicesUiList[2].assertNotAvailableToCooseState()
-        choicesUiList[3].assertNotAvailableToCooseState()
+        choicesUiList[2].assertNotAvailableToChooseState()
+        choicesUiList[3].assertNotAvailableToChooseState()
         checkUi.assertNotVisible()
         nextUi.assertVisible()
     }
@@ -73,7 +86,7 @@ class GamePage(question: String, choices: List<String>) {
     fun assertSecondChoiceMadeState() {
         questionUi.assertTextVisible()
         choicesUiList.forEachIndexed { index, choiceUi ->
-            if (index == 1) choiceUi.assertNotAvailableToCooseState()
+            if (index == 1) choiceUi.assertNotAvailableToChooseState()
             else choiceUi.assertAvailableToChooseState()
         }
         checkUi.assertVisible()
@@ -91,7 +104,7 @@ class GamePage(question: String, choices: List<String>) {
 
     fun assertFirstChoiceMadeState() {
         questionUi.assertTextVisible()
-        choicesUiList.first().assertNotAvailableToCooseState()
+        choicesUiList.first().assertNotAvailableToChooseState()
         for (i in 1 until choicesUiList.size) {
             choicesUiList[i].assertAvailableToChooseState()
         }
