@@ -24,10 +24,10 @@ class GamePage(question: String, choices: List<String>) {
     )
 
     private val choicesUiIdList = listOf(
-        R.id.firstChoiseButton,
+        R.id.firstChoiceButton,
         R.id.secondChoiseButton,
         R.id.thirdChoiseButton,
-        R.id.forthChoiseButton
+        R.id.forthChoiceButton
     )
 
     private val choicesUiList = choices.mapIndexed { index, text ->
@@ -41,7 +41,7 @@ class GamePage(question: String, choices: List<String>) {
 
 
     private val checkUi = ButtonUi(
-        id = R.id.checktButton,
+        id = R.id.checkButton,
         textResId = R.string.check,
         colorHex = "#E162EC",
         containerIdMatcher = containerIdMatcher,
