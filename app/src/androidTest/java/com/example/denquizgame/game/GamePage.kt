@@ -22,11 +22,10 @@ class GamePage(question: String, choices: List<String>) {
         containerIdMatcher = containerIdMatcher,
         containerClassTypeMatcher = classTypeMatcher
     )
-
     private val choicesUiIdList = listOf(
         R.id.firstChoiceButton,
-        R.id.secondChoiseButton,
-        R.id.thirdChoiseButton,
+        R.id.secondChoiceButton,
+        R.id.thirdСhoiceButton,
         R.id.forthChoiceButton
     )
 
@@ -93,7 +92,7 @@ class GamePage(question: String, choices: List<String>) {
         nextUi.assertNotVisible()
     }
 
-    fun clickSecondChoise() {
+    fun clickSecondChoice() {
         choicesUiList[1].click()
     }
 
