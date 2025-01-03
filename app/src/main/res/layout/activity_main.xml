@@ -37,12 +37,12 @@
         android:layout_height="wrap_content" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/secondChoiseButton"
+        android:id="@+id/secondChoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/thirdChoiseButton"
+        android:id="@+id/thirdСhoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
