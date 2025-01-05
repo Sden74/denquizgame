@@ -92,7 +92,7 @@ class GamePage(question: String, choices: List<String>) {
         nextUi.assertNotVisible()
     }
 
-    fun clickSecondChoice() {
+    fun clickSecondChoiсe() {
         choicesUiList[1].click()
     }
 
