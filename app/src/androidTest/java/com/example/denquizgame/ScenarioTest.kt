@@ -58,7 +58,7 @@ class ScenarioTest {
         gamePage.clickFirstChoice()
         gamePage.assertFirstChoiceMadeState()
 
-        gamePage.clickSecondChoiсe()
+        gamePage.clickSecondChoice()
         gamePage.assertSecondChoiceMadeState()
 
         gamePage.clickCheck()

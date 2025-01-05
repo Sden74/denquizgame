@@ -25,7 +25,7 @@ class GamePage(question: String, choices: List<String>) {
     private val choicesUiIdList = listOf(
         R.id.firstChoiceButton,
         R.id.secondChoiceButton,
-        R.id.thirdСhoiceButton,
+        R.id.thirdChoiceButton,
         R.id.forthChoiceButton
     )
 
@@ -92,9 +92,7 @@ class GamePage(question: String, choices: List<String>) {
         nextUi.assertNotVisible()
     }
 
-    fun clickSecondChoiсe() {
-        choicesUiList[1].click()
-    }
+
 
 
     fun clickFirstChoice() {
@@ -119,5 +117,9 @@ class GamePage(question: String, choices: List<String>) {
         }
         checkUi.assertVisible()
         nextUi.assertNotVisible()
+    }
+
+    fun clickSecondChoice() {
+        choicesUiList[1].click()
     }
 }
