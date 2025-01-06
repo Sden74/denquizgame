@@ -7,6 +7,8 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:layout_margin="16dp"
     android:paddingHorizontal="16dp"
 
     tools:context=".MainActivity">
@@ -21,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="8dp"
         android:paddingVertical="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         tools:text="Some question here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -34,22 +37,29 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/firstChoiceButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/secondChoiceButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/thirdChoiceButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/forthChoiceButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp" />
 
     <Space
         android:layout_width="match_parent"
@@ -59,6 +69,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/checkButton"
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:layout_height="wrap_content"
         android:background="@color/purple"
@@ -68,6 +79,7 @@
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="16dp"
         android:background="@color/green"
         android:text="@string/next" />
