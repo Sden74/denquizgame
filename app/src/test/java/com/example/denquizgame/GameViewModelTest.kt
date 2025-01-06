@@ -1,6 +1,6 @@
 package com.example.denquizgame
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -27,7 +27,7 @@ class GameViewModelTest {
         assertEquals(expected, actual)
 
         actual = viewModel.chooseFirst()
-        expected = GameUiState.ChoiseMade(
+        expected = GameUiState.ChoiceMade(
             question = "q1",
             choices = listOf(
                 ChoiceUiState.NotAvailableToChoose(text = "c1"),
