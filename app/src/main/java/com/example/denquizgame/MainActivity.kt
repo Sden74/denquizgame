@@ -12,32 +12,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rootLayout)) { v, insets ->
+
+        val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(/*findViewById(R.id.rootLayout)*/ binding.rootLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        val viewModel: GameViewModel = GameViewModel(object : GameRepository {
-            override fun questionAndChoices(): QuestionAndChoices {
-                TODO("Not yet implemented")
-            }
-
-            override fun saveUserChoice(index: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun check(): CorrectAndUserChoiceIndexes {
-                TODO("Not yet implemented")
-            }
-
-            override fun next() {
-                TODO("Not yet implemented")
-            }
-
-        })
+        val viewModel: GameViewModel = GameViewModel(GameRepository.Base())
 
         binding.firstChoiceButton.setOnClickListener {
             val uiState: GameUiState = viewModel.chooseFirst()
@@ -64,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             uiState.update(binding = binding)
         }
 
-        val uiState: GameUiState = viewModel.next()
+        val uiState: GameUiState = viewModel.init()
         uiState.update(binding = binding)
 
 
