@@ -115,8 +115,8 @@ class GamePage(question: String, choices: List<String>) {
         for (i in 1 until choicesUiList.size) {
             choicesUiList[i].assertNotAvailableToChooseState()
         }
-        checkUi.assertVisible()
-        nextUi.assertNotVisible()
+        checkUi.assertNotVisible()
+        nextUi.assertVisible()
     }
 
     fun clickSecondChoice() {

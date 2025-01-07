@@ -30,6 +30,7 @@ class QuestionUi(
 
     fun assertTextVisible() {
         interaction.check(matches(isCompletelyDisplayed()))
+        //interaction.check(matches(isDisplayed()))
     }
 
 }
