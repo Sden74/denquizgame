@@ -65,7 +65,7 @@ class GamePage(question: String, choices: List<String>) {
     }
 
     fun clickNext() {
-        TODO("Not yet implemented")
+        nextUi.click()
     }
 
     fun assertAnswerCheckedStateFirstIsCorrectSecondIsIncorrect() {

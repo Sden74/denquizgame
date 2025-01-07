@@ -52,7 +52,7 @@ class ChoiceUi(
     fun assertIncorrectState() {
         interaction.check(matches(ButtonColorMatcher("#E85A5A")))
             .check(matches(isEnabled()))
-            .check(matches(isClickable()))
+            .check(matches(isNotClickable()))
     }
 
 //    fun click() {
