@@ -19,6 +19,7 @@ class MainActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("sdv74", " onCreate")
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
@@ -35,7 +36,9 @@ class MainActivity() : AppCompatActivity() {
         // создаем статику модельки GameViewModel
         // при пересоздании Activity View-моделька не будет пересоздаваться, т.к. находится в статике
         //
-        val viewModel: GameViewModel = ViewModelContainer.viewModel
+        //val viewModel: GameViewModel = ViewModelContainer.viewModel
+
+        val viewModel: GameViewModel = (application as QuizApp).viewModel
 
         binding.firstChoiceButton.setOnClickListener {
             val uiState: GameUiState = viewModel.chooseFirst()
@@ -75,13 +78,7 @@ class MainActivity() : AppCompatActivity() {
 // НО!!!!! Согласно логам ViewModelContainer создается после Activity что нас не устраивает,
 // поэтому мы от него откажемся
 // в андроид разработке нет смысла использовать синглтоны (object)
-object ViewModelContainer { // todo remove
-    init {
-        Log.d("sdv74", "vmcontainer")
-    }
 
-    val viewModel = GameViewModel(GameRepository.Base())
-}
 
 /*
 interface Context {
