@@ -8,10 +8,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.denquizgame.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity {
+class MainActivity() : AppCompatActivity() {
 
-    constructor() : super() {
-        Log.d("sdv74", "onCreate called")
+    /*constructor() : super() {
+            Log.d("sdv74", "onCreate called")
+        }*/
+    init {
+        Log.d("sdv74", "mainActivity")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,11 @@ class MainActivity : AppCompatActivity {
             insets
         }
 
-        val viewModel: GameViewModel = GameViewModel(GameRepository.Base())
+        //val viewModel: GameViewModel = GameViewModel(GameRepository.Base())
+        // создаем статику модельки GameViewModel
+        // при пересоздании Activity View-моделька не будет пересоздаваться, т.к. находится в статике
+        //
+        val viewModel: GameViewModel = ViewModelContainer.viewModel
 
         binding.firstChoiceButton.setOnClickListener {
             val uiState: GameUiState = viewModel.chooseFirst()
@@ -60,6 +67,20 @@ class MainActivity : AppCompatActivity {
 
 
     }
+}
+
+// Нужен контейнер типа object потому что object не может принимать в себя зависимости
+// и создать object viewModel : GameViewModel(GameRepository.Base())
+// иными словами создаем singlton
+// НО!!!!! Согласно логам ViewModelContainer создается после Activity что нас не устраивает,
+// поэтому мы от него откажемся
+// в андроид разработке нет смысла использовать синглтоны (object)
+object ViewModelContainer { // todo remove
+    init {
+        Log.d("sdv74", "vmcontainer")
+    }
+
+    val viewModel = GameViewModel(GameRepository.Base())
 }
 
 /*
