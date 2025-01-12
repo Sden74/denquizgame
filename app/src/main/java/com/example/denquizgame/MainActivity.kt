@@ -19,7 +19,7 @@ class MainActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("sdv74", " onCreate")
+        Log.d("sdv74", " onCreate ${savedInstanceState == null}")
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
