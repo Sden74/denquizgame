@@ -65,6 +65,7 @@ class MainActivity() : AppCompatActivity() {
         }
         binding.nextButton.setOnClickListener {
             uiState = viewModel.next()
+            uiState.update(binding = binding)
         }
 
         if (savedInstanceState == null) {
@@ -73,15 +74,16 @@ class MainActivity() : AppCompatActivity() {
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 uiState = savedInstanceState.getSerializable(
-                    "uiState",
+                    KEY,
                     GameUiState::class.java
                 ) as GameUiState
             } else {
                 uiState = savedInstanceState.getSerializable(
-                    "uiState"
+                    KEY
                 ) as GameUiState
             }
         }
+
         uiState.update(binding = binding)
 
 
@@ -90,13 +92,17 @@ class MainActivity() : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d("sdv74", " onSaveInstanceState")
-        outState.putSerializable("uiState", uiState)
+        outState.putSerializable(KEY, uiState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.d("sdv74", " onRestoreInstanceState")
         //todo restore data
+    }
+
+    companion object {
+        private const val KEY = "uiState"
     }
 }
 

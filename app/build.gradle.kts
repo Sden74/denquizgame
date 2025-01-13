@@ -37,6 +37,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    // когда во время UI-теста идут анимации они занимают время, а кода ожидающего конца анимаций
+    // нет поэтому проще анимации в тестах вырубить
+    testOptions {
+        animationsDisabled = true
+    }
 
 }
 

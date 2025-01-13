@@ -1,11 +1,9 @@
 package com.example.denquizgame
 
-import android.util.Log
-
 class GameViewModel(private val repository: GameRepository) {
-    init {
+    /*init {
         Log.d("sdv74", "GameViewModel")
-    }
+    }*/
     fun chooseFirst(): GameUiState {
         repository.saveUserChoice(0)
         val data = repository.questionAndChoices()

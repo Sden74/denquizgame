@@ -15,14 +15,17 @@ interface ChoiceUiState : Serializable {
     ) : ChoiceUiState {
         override fun update(button: AppCompatButton) = with(button) {
             text = value
-            if (enabled)
-                setBackgroundColor(Color.parseColor(color))
+            /*if (enabled)
+                setBackgroundColor(Color.parseColor(color))*/
             isEnabled = enabled
             isClickable = clickable
+
+            setBackgroundColor(Color.parseColor(color))
         }
     }
 
-    data class NotAvailableToChoose(private val text: String) : Abstract(text, "", enabled = false)
+    data class NotAvailableToChoose(private val text: String) :
+        Abstract(text, "#75797E", enabled = false)
 
     data class AvailableToChoose(private val text: String) : Abstract(text, "#62A1EC", true)
 
