@@ -2,8 +2,9 @@ package com.example.denquizgame
 
 import android.view.View
 import com.example.denquizgame.databinding.ActivityMainBinding
+import java.io.Serializable
 
-interface GameUiState {
+interface GameUiState : Serializable {
 
     fun update(binding: ActivityMainBinding)
 

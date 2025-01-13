@@ -2,8 +2,9 @@ package com.example.denquizgame
 
 import android.graphics.Color
 import androidx.appcompat.widget.AppCompatButton
+import java.io.Serializable
 
-interface ChoiceUiState {
+interface ChoiceUiState : Serializable {
     fun update(button: AppCompatButton)
 
     abstract class Abstract(

@@ -1,5 +1,6 @@
 package com.example.denquizgame
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,8 @@ class MainActivity() : AppCompatActivity() {
     init {
         Log.d("sdv74", "mainActivity")
     }
+
+    private lateinit var uiState: GameUiState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,34 +44,59 @@ class MainActivity() : AppCompatActivity() {
         val viewModel: GameViewModel = (application as QuizApp).viewModel
 
         binding.firstChoiceButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.chooseFirst()
+            uiState = viewModel.chooseFirst()
             uiState.update(binding = binding)
         }
         binding.secondChoiceButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.chooseSecond()
+            uiState = viewModel.chooseSecond()
             uiState.update(binding = binding)
         }
         binding.thirdChoiceButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.chooseThird()
+            uiState = viewModel.chooseThird()
             uiState.update(binding = binding)
         }
         binding.forthChoiceButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.chooseForth()
+            uiState = viewModel.chooseForth()
             uiState.update(binding = binding)
         }
         binding.checkButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.check()
+            uiState = viewModel.check()
             uiState.update(binding = binding)
         }
         binding.nextButton.setOnClickListener {
-            val uiState: GameUiState = viewModel.next()
-            uiState.update(binding = binding)
+            uiState = viewModel.next()
         }
 
-        val uiState: GameUiState = viewModel.init()
+        if (savedInstanceState == null) {
+            uiState = viewModel.init()
+            uiState.update(binding = binding)
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                uiState = savedInstanceState.getSerializable(
+                    "uiState",
+                    GameUiState::class.java
+                ) as GameUiState
+            } else {
+                uiState = savedInstanceState.getSerializable(
+                    "uiState"
+                ) as GameUiState
+            }
+        }
         uiState.update(binding = binding)
 
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("sdv74", " onSaveInstanceState")
+        outState.putSerializable("uiState", uiState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d("sdv74", " onRestoreInstanceState")
+        //todo restore data
     }
 }
 
