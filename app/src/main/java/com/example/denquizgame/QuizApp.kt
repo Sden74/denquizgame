@@ -1,6 +1,7 @@
 package com.example.denquizgame
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 
 class QuizApp : Application() {
@@ -18,7 +19,13 @@ class QuizApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        val sharedPreferences = getSharedPreferences("quizAppData", Context.MODE_PRIVATE)
         Log.d("sdv74", "onCreate QuizApp")
-        viewModel = GameViewModel(GameRepository.Base())
+        viewModel = GameViewModel(
+            GameRepository.Base(
+                IntCache.Base(sharedPreferences, "indexKey", 0),
+                IntCache.Base(sharedPreferences, "userChoiceIndexKey", -1),
+            )
+        )
     }
 }
