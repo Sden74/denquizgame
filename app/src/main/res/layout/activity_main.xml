@@ -18,7 +18,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
+    <com.example.denquizgame.views.question.QuestionTextView
         android:id="@+id/questionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,27 +34,27 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.choice.ChoiceButton
         android:id="@+id/firstChoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.choice.ChoiceButton
         android:id="@+id/secondChoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.choice.ChoiceButton
         android:id="@+id/thirdChoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.choice.ChoiceButton
         android:id="@+id/forthChoiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.visiblebutton.VisibilityButton
         android:id="@+id/checkButton"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="16dp"
@@ -75,7 +75,7 @@
         android:background="@color/purple"
         android:text="@string/check" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.denquizgame.views.visiblebutton.VisibilityButton
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
