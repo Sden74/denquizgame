@@ -1,6 +1,5 @@
 package com.example.denquizgame
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -43,53 +42,61 @@ class MainActivity() : AppCompatActivity() {
 
         val viewModel: GameViewModel = (application as QuizApp).viewModel
 
+        val update: () -> Unit = {
+            //uiState.update(binding = binding)
+            uiState.update(
+                binding.questionTextView,
+                binding.firstChoiceButton,
+                binding.secondChoiceButton,
+                binding.thirdChoiceButton,
+                binding.forthChoiceButton,
+                binding.nextButton,
+                binding.checkButton
+            )
+        }
+
         binding.firstChoiceButton.setOnClickListener {
             uiState = viewModel.chooseFirst()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
         binding.secondChoiceButton.setOnClickListener {
             uiState = viewModel.chooseSecond()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
         binding.thirdChoiceButton.setOnClickListener {
             uiState = viewModel.chooseThird()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
         binding.forthChoiceButton.setOnClickListener {
             uiState = viewModel.chooseForth()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
         binding.checkButton.setOnClickListener {
             uiState = viewModel.check()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
         binding.nextButton.setOnClickListener {
             uiState = viewModel.next()
-            uiState.update(binding = binding)
+            //uiState.update(binding = binding)
+            update.invoke()
         }
 
-        if (savedInstanceState == null) {
-            uiState = viewModel.init()
-            uiState.update(binding = binding)
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                uiState = savedInstanceState.getSerializable(
-                    KEY,
-                    GameUiState::class.java
-                ) as GameUiState
-            } else {
-                uiState = savedInstanceState.getSerializable(
-                    KEY
-                ) as GameUiState
-            }
-        }
+        uiState = viewModel.init(savedInstanceState == null)
+        //uiState.update(binding = binding)
 
-        uiState.update(binding = binding)
+
+        //uiState.update(binding = binding)
+        update.invoke()
 
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    /*override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d("sdv74", " onSaveInstanceState")
         outState.putSerializable(KEY, uiState)
@@ -103,7 +110,7 @@ class MainActivity() : AppCompatActivity() {
 
     companion object {
         private const val KEY = "uiState"
-    }
+    }*/
 }
 
 // Нужен контейнер типа object потому что object не может принимать в себя зависимости
