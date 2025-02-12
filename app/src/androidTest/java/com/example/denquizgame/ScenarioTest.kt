@@ -136,7 +136,7 @@ class ScenarioTest {
         activityScenarioRule.scenario.recreate()
         gameOverPage.assertInitialState()
 
-        gameOverPage.clickNewGsme()
+        gameOverPage.clickNewGame()
         gameOverPage.assertNotVisible()
 
         //endregion
@@ -190,7 +190,7 @@ class ScenarioTest {
         activityScenarioRule.scenario.recreate()
         gameOverPage.assertInitialState()
 
-        gameOverPage.clickNewGsme()
+        gameOverPage.clickNewGame()
         gameOverPage.assertNotVisible()
 
         //endregion

@@ -122,4 +122,8 @@ class GamePage(question: String, choices: List<String>) {
     fun clickSecondChoice() {
         choicesUiList[1].click()
     }
+
+    fun assertNotVisible() {
+        questionUi.assertDoesNotExist()
+    }
 }
