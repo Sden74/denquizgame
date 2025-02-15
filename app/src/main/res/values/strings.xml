@@ -3,5 +3,5 @@
     <string name="check">check</string>
     <string name="next">next</string>
     <string name="new_game" translatable="false">start a new game</string>
-    <string name="stats" translatable="false">Corrects: %d\nIncorrects: %d</string>
+    <string name="stats" translatable="false">Game Over\n\nCorrects: %d\nIncorrects: %d</string>
 </resources>

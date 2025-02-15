@@ -32,7 +32,7 @@ class StatsUi(
             allOf(
                 withId(R.id.statsTextView),
                 isAssignableFrom(TextView::class.java),
-                withText("Corrects: $corrects\nIncorrects: $incorrects"),
+                withText("Game Over\n\nCorrects: $corrects\nIncorrects: $incorrects"),
                 containerIdMatcher,
                 classTypeMatcher,
 

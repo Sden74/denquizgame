@@ -39,7 +39,7 @@ class StatsTextView : androidx.appcompat.widget.AppCompatTextView, UpdateStats {
 
     override fun updateInner(corrects: Int, incorrects: Int) {
         //state = StatsUiState(corrects,incorrects)
-        setText(resources.getString(R.string.stats, corrects, incorrects))
+        text = resources.getString(R.string.stats, corrects, incorrects)
     }
 }
 
