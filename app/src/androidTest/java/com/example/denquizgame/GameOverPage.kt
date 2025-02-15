@@ -9,17 +9,6 @@ import com.example.denquizgame.game.ButtonUi
 import org.hamcrest.Matcher
 
 class GameOverPage(incorrects: Int, corrects: Int) {
-    fun assertInitialState() {
-        statsUi.assertVisible()
-    }
-
-    fun clickNewGame() {
-        newGameUi.click()
-    }
-
-    fun assertNotVisible() {
-        statsUi.assertDoesNotExist()
-    }
 
     private val containerIdMatcher: Matcher<View> = withParent(withId(R.id.gameOverContainer))
     private val classTypeMatcher: Matcher<View> =
@@ -35,4 +24,17 @@ class GameOverPage(incorrects: Int, corrects: Int) {
         containerIdMatcher,
         classTypeMatcher
     )
+
+    fun assertInitialState() {
+        statsUi.assertVisible()
+    }
+
+    fun clickNewGame() {
+        newGameUi.click()
+    }
+
+    fun assertNotVisible() {
+        statsUi.assertDoesNotExist()
+    }
+
 }
