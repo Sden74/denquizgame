@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.denquizgame.databinding.ActivityMainBinding
+import com.example.denquizgame.databinding.GameOverBinding
 
 class MainActivity() : AppCompatActivity() {
 
@@ -81,9 +82,16 @@ class MainActivity() : AppCompatActivity() {
             update.invoke()
         }
         binding.nextButton.setOnClickListener {
-            uiState = viewModel.next()
+            /*uiState = viewModel.next()
             //uiState.update(binding = binding)
-            update.invoke()
+            update.invoke()*/
+            val gameOverBinding: GameOverBinding = GameOverBinding.inflate(layoutInflater)
+            setContentView(gameOverBinding.root)
+            gameOverBinding.newGameButton.setOnClickListener {
+                setContentView(binding.root)
+                uiState = viewModel.init(true)
+                update.invoke()
+            }
         }
 
         uiState = viewModel.init(savedInstanceState == null)
