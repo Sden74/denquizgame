@@ -1,11 +1,52 @@
 package com.example.denquizgame
 
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.denquizgame.databinding.ActivityMainBinding
 import com.example.denquizgame.databinding.GameOverBinding
+import java.io.Serializable
+
+class MyCustomFragmentManager {
+    private var lastScreen: MyCustomScreen? = null
+    fun save(outState: Bundle) {
+        outState.putSerializable("screen", lastScreen)
+        lastScreen?.detach()
+    }
+
+    fun restore(savedInstanceState: Bundle, activity: MainActivity) {
+        lastScreen = if (SDK_INT >= TIRAMISU) {
+            savedInstanceState.getSerializable(
+                "screen",
+                MyCustomScreen::class.java
+            ) as MyCustomScreen
+        } else {
+            savedInstanceState.getSerializable("screen") as MyCustomScreen
+        }
+        lastScreen?.attach(activity)
+        lastScreen?.show(savedInstanceState)
+    }
+
+    fun show(screen: MyCustomScreen, activity: MainActivity) {
+        if (lastScreen != null && screen::class.java.simpleName == lastScreen!!::class.java.simpleName) {
+            lastScreen!!.attach(activity)
+            lastScreen!!.show(null)
+        } else {
+            lastScreen = screen
+            lastScreen!!.attach(activity)
+            lastScreen!!.show(null)
+        }
+
+    }
+}
+
+interface MyCustomScreen : Serializable {
+    fun attach(activity: MainActivity)
+    fun detach()
+    fun show(savedInstanceState: Bundle?)
+}
 
 class MainActivity() : AppCompatActivity() {
 
@@ -16,23 +57,28 @@ class MainActivity() : AppCompatActivity() {
          Log.d("sdv74", "mainActivity")
      }*/
 
-    private lateinit var showGameOver: () -> Unit
-    private lateinit var showGame: () -> Unit
+    //private lateinit var showGameOver: () -> Unit
+    //private lateinit var showGame: () -> Unit
 
+
+    private val fragmentManger = MyCustomFragmentManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("sdv74", " onCreate ${savedInstanceState == null}")
-        enableEdgeToEdge()
-        showGame = {
+
+        //Log.d("sdv74", " onCreate ${savedInstanceState == null}")
+        /*showGame = {
             GameCustomScreen(showGameOver).show(this, savedInstanceState)
         }
         showGameOver = {
             GameOverMyCustomScreen(showGame).show(this)
         }
+*/
 
+        enableEdgeToEdge()
         if (savedInstanceState == null) {
-            showGame.invoke()
+            //showGame.invoke()
+            navigateToGameScreen()
         }
 
         /* ViewCompat.setOnApplyWindowInsetsListener(*//*findViewById(R.id.rootLayout)*//* binding.rootLayout) { v, insets ->
@@ -54,6 +100,23 @@ class MainActivity() : AppCompatActivity() {
 
     }
 
+    fun navigateToGameScreen() {
+        fragmentManger.show(GameCustomScreen(), this)
+    }
+
+    fun navigateToGameOver() {
+        fragmentManger.show(GameOverMyCustomScreen(), this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        fragmentManger.save(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        fragmentManger.restore(savedInstanceState, this)
+    }
     /*override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d("sdv74", " onSaveInstanceState")
@@ -149,14 +212,23 @@ class Init{
 }*/
 
 
-class GameCustomScreen(private val showGameOver: () -> Unit) {
+class GameCustomScreen : MyCustomScreen {
 
+    private var activity: MainActivity? = null
 
-    fun show(activity: MainActivity, savedInstanceState: Bundle?) {
-        val binding: ActivityMainBinding = ActivityMainBinding.inflate(activity.layoutInflater)
-        activity.setContentView(binding.root)
+    override fun attach(activity: MainActivity) {
+        this.activity = activity
+    }
 
-        val viewModel: GameViewModel = (activity.application as QuizApp).gameViewModel
+    override fun detach() {
+        activity = null
+    }
+
+    override fun show(savedInstanceState: Bundle?) {
+        val binding: ActivityMainBinding = ActivityMainBinding.inflate(activity!!.layoutInflater)
+        activity!!.setContentView(binding.root)
+
+        val viewModel: GameViewModel = (activity!!.application as QuizApp).gameViewModel
         lateinit var uiState: GameUiState
         val update: () -> Unit = {
             //uiState.update(binding = binding)
@@ -202,15 +274,16 @@ class GameCustomScreen(private val showGameOver: () -> Unit) {
         }*/
 
         binding.nextButton.setOnClickListener {
+            activity!!.navigateToGameOver()
             //GameOverFragment(showGameFragment).show(activity)
-            showGameOver.invoke()
+            //showGameOver.invoke()
             /*uiState = viewModel.next()
             //uiState.update(binding = binding)
             update.invoke()*/
 
         }
 
-        uiState = viewModel.init(savedInstanceState == null)
+        uiState = viewModel.init(true)
         //uiState.update(binding = binding)
 
 
@@ -219,19 +292,33 @@ class GameCustomScreen(private val showGameOver: () -> Unit) {
     }
 }
 
-class GameOverMyCustomScreen(private val showGameFragment: () -> Unit) {
-    fun show(activity: MainActivity) {
+class GameOverMyCustomScreen : MyCustomScreen {
 
-        val viewModel: GameOverViewModel = (activity.application as QuizApp).gameOverViewModel
+    private var activity: MainActivity? = null
 
-        val gameOverBinding: GameOverBinding = GameOverBinding.inflate(activity.layoutInflater)
-        activity.setContentView(gameOverBinding.root)
+    override fun show(savedInstanceState: Bundle?) {
+
+        val viewModel: GameOverViewModel = (activity!!.application as QuizApp).gameOverViewModel
+
+        val gameOverBinding: GameOverBinding = GameOverBinding.inflate(activity!!.layoutInflater)
+        activity!!.setContentView(gameOverBinding.root)
 
         gameOverBinding.statsTextView.updateOuter(viewModel.statsUiState)
 
         gameOverBinding.newGameButton.setOnClickListener {
             //activity.setContentView(binding.root)
-            showGameFragment.invoke()
+            //showGameFragment.invoke()
+            activity?.navigateToGameScreen()
         }
     }
+
+    override fun attach(activity: MainActivity) {
+        this.activity = activity
+    }
+
+    override fun detach() {
+        activity = null
+    }
+
+
 }
