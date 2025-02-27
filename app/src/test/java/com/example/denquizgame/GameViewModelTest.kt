@@ -58,6 +58,50 @@ class GameViewModelTest {
             )
         )
         assertEquals(expected, actual)
+
+        actual = viewModel.next()
+
+        expected = GameUiState.AskedQuestion(
+            question = "q2",
+            choices = listOf("cd1", "cd2", "cd3", "cd4")
+        )
+        assertEquals(expected, actual)
+
+        actual = viewModel.chooseFirst()
+        expected = GameUiState.ChoiceMade(
+            //question = "q1",
+            choices = listOf(
+                /*ChoiceUiState.NotAvailableToChoose(text = "c1"),
+                ChoiceUiState.AvailableToChoose(text = "c2"),
+                ChoiceUiState.AvailableToChoose(text = "c3"),
+                ChoiceUiState.AvailableToChoose(text = "c4")*/
+                ChoiceUiState.NotAvailableToChoose,
+                ChoiceUiState.AvailableToChoose,
+                ChoiceUiState.AvailableToChoose,
+                ChoiceUiState.AvailableToChoose
+            )
+        )
+        assertEquals(expected, actual)
+
+        actual = viewModel.check()
+        expected = GameUiState.AnswerChecked(
+            //question = "q1",
+            choices = listOf(
+                /*ChoiceUiState.Correct(text = "c1"),
+                ChoiceUiState.NotAvailableToChoose(text = "c2"),
+                ChoiceUiState.NotAvailableToChoose(text = "c3"),
+                ChoiceUiState.NotAvailableToChoose(text = "c4")*/
+                ChoiceUiState.Correct,
+                ChoiceUiState.NotAvailableToChoose,
+                ChoiceUiState.NotAvailableToChoose,
+                ChoiceUiState.NotAvailableToChoose
+            )
+        )
+        assertEquals(expected, actual)
+
+        actual = viewModel.next()
+        expected = GameUiState.Finish
+        assertEquals(expected, actual)
     }
 
     /**
@@ -202,7 +246,11 @@ private class FakeRepository : GameRepository {
         userChoiceIndex = -1
         index++
 
-        if (index == list.size)
+        if (isLastQuestion())
             index = 0
+    }
+
+    override fun isLastQuestion(): Boolean {
+        return index == list.size
     }
 }
