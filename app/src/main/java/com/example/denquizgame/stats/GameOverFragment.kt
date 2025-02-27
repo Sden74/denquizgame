@@ -30,7 +30,7 @@ class GameOverFragment : Fragment() {
             (requireActivity().application as QuizApp).gameOverViewModel
 
 
-        binding.statsTextView.updateOuter(viewModel.statsUiState)
+        binding.statsTextView.updateOuter(viewModel.statsUiState())
 
         binding.newGameButton.setOnClickListener {
             (requireActivity() as NavigateToGame).navigateToGame()
