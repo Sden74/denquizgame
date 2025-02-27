@@ -1,4 +1,6 @@
-package com.example.denquizgame
+package com.example.denquizgame.game
+
+import com.example.denquizgame.IntCache
 
 interface GameRepository {
 

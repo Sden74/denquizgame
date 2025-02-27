@@ -1,10 +1,9 @@
-package com.example.denquizgame
+package com.example.denquizgame.game
 
 import com.example.denquizgame.views.choice.ChoiceUiState
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-
 
 class GameViewModelTest {
 
@@ -25,7 +24,7 @@ class GameViewModelTest {
             question = "q1",
             choices = listOf("c1", "c2", "c3", "c4")
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseFirst()
         expected = GameUiState.ChoiceMade(
@@ -41,7 +40,7 @@ class GameViewModelTest {
                 ChoiceUiState.AvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.check()
         expected = GameUiState.AnswerChecked(
@@ -57,7 +56,7 @@ class GameViewModelTest {
                 ChoiceUiState.NotAvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.next()
 
@@ -65,7 +64,7 @@ class GameViewModelTest {
             question = "q2",
             choices = listOf("cd1", "cd2", "cd3", "cd4")
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseFirst()
         expected = GameUiState.ChoiceMade(
@@ -81,7 +80,7 @@ class GameViewModelTest {
                 ChoiceUiState.AvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.check()
         expected = GameUiState.AnswerChecked(
@@ -97,11 +96,11 @@ class GameViewModelTest {
                 ChoiceUiState.NotAvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.next()
         expected = GameUiState.Finish
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 
     /**
@@ -114,7 +113,7 @@ class GameViewModelTest {
             question = "q1",
             choices = listOf("c1", "c2", "c3", "c4")
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseFirst()
         expected = GameUiState.ChoiceMade(
@@ -130,7 +129,7 @@ class GameViewModelTest {
                 ChoiceUiState.AvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseSecond()
         expected = GameUiState.ChoiceMade(
@@ -146,7 +145,7 @@ class GameViewModelTest {
                 ChoiceUiState.AvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseThird()
         expected = GameUiState.ChoiceMade(
@@ -162,7 +161,7 @@ class GameViewModelTest {
                 ChoiceUiState.AvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.chooseForth()
         expected = GameUiState.ChoiceMade(
@@ -178,7 +177,7 @@ class GameViewModelTest {
                 ChoiceUiState.NotAvailableToChoose
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.check()
         expected = GameUiState.AnswerChecked(
@@ -194,14 +193,14 @@ class GameViewModelTest {
                 ChoiceUiState.Incorrect
             )
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
 
         actual = viewModel.next()
         expected = GameUiState.AskedQuestion(
             question = "q2",
             choices = listOf("cd1", "cd2", "cd3", "cd4")
         )
-        assertEquals(expected, actual)
+        Assert.assertEquals(expected, actual)
     }
 }
 
