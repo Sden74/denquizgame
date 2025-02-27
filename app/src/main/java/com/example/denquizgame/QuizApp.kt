@@ -3,7 +3,9 @@ package com.example.denquizgame
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.example.denquizgame.views.stats.StatsUiState
+import com.example.denquizgame.game.GameRepository
+import com.example.denquizgame.game.GameViewModel
+import com.example.denquizgame.stats.GameOverViewModel
 
 class QuizApp : Application() {
     //здесь создавать view-модельку нельзя, т.к. если репе будет нужен контекст то
@@ -29,11 +31,7 @@ class QuizApp : Application() {
                 IntCache.Base(sharedPreferences, "userChoiceIndexKey", -1),
             )
         )
-        gameOverViewModel = GameOverViewModel()
+        // gameOverViewModel = GameOverViewModel(repository = )
     }
 }
 
-class GameOverViewModel {
-    //todo
-    val statsUiState: StatsUiState = StatsUiState.Base(1, 1)
-}

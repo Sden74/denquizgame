@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.denquizgame.GameUiState
-import com.example.denquizgame.GameViewModel
 import com.example.denquizgame.QuizApp
 import com.example.denquizgame.Screen
 import com.example.denquizgame.databinding.FragmentGameBinding
@@ -31,7 +29,7 @@ class GameFragment : Fragment() {
         val viewModel: GameViewModel = (requireActivity().application as QuizApp).gameViewModel
         lateinit var uiState: GameUiState
         val update: () -> Unit = {
-
+            //todo (requireActivity() as NavigateToGameOver).navigateToGameOver()
             uiState.update(
                 binding.questionTextView,
                 binding.firstChoiceButton,
@@ -41,6 +39,7 @@ class GameFragment : Fragment() {
                 binding.nextButton,
                 binding.checkButton
             )
+            uiState.navigate(requireActivity() as NavigateToGameOver)
         }
 
         binding.firstChoiceButton.setOnClickListener {
@@ -65,7 +64,8 @@ class GameFragment : Fragment() {
         }
 
         binding.nextButton.setOnClickListener {
-            (requireActivity() as NavigateToGameOver).navigateToGameOver()
+            uiState = viewModel.next()//todo
+            update.invoke()
         }
 
         uiState = viewModel.init(savedInstanceState == null)

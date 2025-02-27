@@ -1,6 +1,7 @@
-package com.example.denquizgame
+package com.example.denquizgame.game
 
 
+import com.example.denquizgame.stats.NavigateToGameOver
 import com.example.denquizgame.views.choice.ChoiceUiState
 import com.example.denquizgame.views.choice.UpdateChoiceButton
 import com.example.denquizgame.views.question.UpdateText
@@ -17,18 +18,16 @@ interface GameUiState : Serializable {
         forthChoiceButton: UpdateChoiceButton,
         nextButton: UpdateVisibility,
         checkButton: UpdateVisibility
-    )
+    ) = Unit
 
-    object Empty : GameUiState {
-        override fun update(
-            questionTextView: UpdateText,
-            firstChoiceButton: UpdateChoiceButton,
-            secondChoiceButton: UpdateChoiceButton,
-            thirdChoiceButton: UpdateChoiceButton,
-            forthChoiceButton: UpdateChoiceButton,
-            nextButton: UpdateVisibility,
-            checkButton: UpdateVisibility
-        ) = Unit
+    fun navigate(navigate: NavigateToGameOver) = Unit
+
+    object Empty : GameUiState
+
+    object Finish : GameUiState {
+        override fun navigate(navigate: NavigateToGameOver) {
+            navigate.navigateToGameOver()
+        }
     }
 
     //fun update(binding: ActivityMainBinding) //todo remove
