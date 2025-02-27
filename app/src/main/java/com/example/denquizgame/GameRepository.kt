@@ -6,7 +6,7 @@ interface GameRepository {
     fun saveUserChoice(index: Int)
     fun check(): CorrectAndUserChoiceIndexes
     fun next()
-
+    fun isLastQuestion(): Boolean
     // Хранилище данных репозитория(два QuestionAndChoices)
     class Base(
 
@@ -63,11 +63,17 @@ interface GameRepository {
             else
                 index++
                 */
-            if (index.read() + 1 == list.size)
-                index.save(0)
-            else
-                index.save(index.read() + 1)
 
+            index.save(if (isLastQuestion()) 0 else index.read() + 1)
+            /* if (isLastQuestion())
+                 index.save(0)
+             else
+                 index.save(index.read() + 1)
+ */
         }
+
+        override fun isLastQuestion(): Boolean = index.read() + 1 == list.size
     }
+
+
 }
