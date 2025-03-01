@@ -51,7 +51,10 @@ interface StatsUiState : Serializable {
         override fun show(statsTextView: UpdateStats) {
             statsTextView.updateInner(corrects, incorrects)
         }
+    }
 
+    object Empty : StatsUiState {
+        override fun show(statsTextView: UpdateStats) = Unit
     }
 }
 //data class StatsUiState(val corrects: Int, val incorrects: Int) : Serializable
