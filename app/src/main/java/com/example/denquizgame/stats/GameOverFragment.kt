@@ -36,7 +36,8 @@ class GameOverFragment : Fragment() {
         }
 
         val uiState = viewModel.init(savedInstanceState == null)
-        uiState.show(binding.statsTextView)
+        //uiState.show(binding.statsTextView)
+        binding.statsTextView.updateOuter(uiState)// фиксим crash
     }
 
     override fun onDestroyView() {
