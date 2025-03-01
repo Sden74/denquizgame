@@ -8,10 +8,11 @@ import org.junit.Test
 class GameViewModelTest {
 
     private lateinit var viewModel: GameViewModel
-
+    private lateinit var repository: FakeRepository
     @Before
     fun setup() {
-        viewModel = GameViewModel(repository = FakeRepository())
+        repository = FakeRepository()
+        viewModel = GameViewModel(repository = repository)
     }
 
     /**
@@ -28,12 +29,7 @@ class GameViewModelTest {
 
         actual = viewModel.chooseFirst()
         expected = GameUiState.ChoiceMade(
-            //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.NotAvailableToChoose(text = "c1"),
-                ChoiceUiState.AvailableToChoose(text = "c2"),
-                ChoiceUiState.AvailableToChoose(text = "c3"),
-                ChoiceUiState.AvailableToChoose(text = "c4")*/
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
@@ -44,12 +40,7 @@ class GameViewModelTest {
 
         actual = viewModel.check()
         expected = GameUiState.AnswerChecked(
-            //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.Correct(text = "c1"),
-                ChoiceUiState.NotAvailableToChoose(text = "c2"),
-                ChoiceUiState.NotAvailableToChoose(text = "c3"),
-                ChoiceUiState.NotAvailableToChoose(text = "c4")*/
                 ChoiceUiState.Correct,
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.NotAvailableToChoose,
@@ -65,15 +56,11 @@ class GameViewModelTest {
             choices = listOf("cd1", "cd2", "cd3", "cd4")
         )
         Assert.assertEquals(expected, actual)
+        Assert.assertEquals(false, repository.clearCalled)
 
         actual = viewModel.chooseFirst()
         expected = GameUiState.ChoiceMade(
-            //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.NotAvailableToChoose(text = "c1"),
-                ChoiceUiState.AvailableToChoose(text = "c2"),
-                ChoiceUiState.AvailableToChoose(text = "c3"),
-                ChoiceUiState.AvailableToChoose(text = "c4")*/
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
@@ -84,12 +71,7 @@ class GameViewModelTest {
 
         actual = viewModel.check()
         expected = GameUiState.AnswerChecked(
-            //question = "q1",
-            choices = listOf(
-                /*ChoiceUiState.Correct(text = "c1"),
-                ChoiceUiState.NotAvailableToChoose(text = "c2"),
-                ChoiceUiState.NotAvailableToChoose(text = "c3"),
-                ChoiceUiState.NotAvailableToChoose(text = "c4")*/
+            choices = listOf<ChoiceUiState>(
                 ChoiceUiState.Correct,
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.NotAvailableToChoose,
@@ -101,6 +83,7 @@ class GameViewModelTest {
         actual = viewModel.next()
         expected = GameUiState.Finish
         Assert.assertEquals(expected, actual)
+        Assert.assertEquals(true, repository.clearCalled)
     }
 
     /**
@@ -119,10 +102,6 @@ class GameViewModelTest {
         expected = GameUiState.ChoiceMade(
             //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.NotAvailableToChoose(text = "c1"),
-                ChoiceUiState.AvailableToChoose(text = "c2"),
-                ChoiceUiState.AvailableToChoose(text = "c3"),
-                ChoiceUiState.AvailableToChoose(text = "c4")*/
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
@@ -135,10 +114,6 @@ class GameViewModelTest {
         expected = GameUiState.ChoiceMade(
             //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.AvailableToChoose(text = "c1"),
-                ChoiceUiState.NotAvailableToChoose(text = "c2"),
-                ChoiceUiState.AvailableToChoose(text = "c3"),
-                ChoiceUiState.AvailableToChoose(text = "c4")*/
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
@@ -151,10 +126,6 @@ class GameViewModelTest {
         expected = GameUiState.ChoiceMade(
             //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.AvailableToChoose(text = "c1"),
-                ChoiceUiState.AvailableToChoose(text = "c2"),
-                ChoiceUiState.NotAvailableToChoose(text = "c3"),
-                ChoiceUiState.AvailableToChoose(text = "c4")*/
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.NotAvailableToChoose,
@@ -167,10 +138,6 @@ class GameViewModelTest {
         expected = GameUiState.ChoiceMade(
             //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.AvailableToChoose(text = "c1"),
-                ChoiceUiState.AvailableToChoose(text = "c2"),
-                ChoiceUiState.AvailableToChoose(text = "c3"),
-                ChoiceUiState.NotAvailableToChoose(text = "c4")*/
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
                 ChoiceUiState.AvailableToChoose,
@@ -183,10 +150,6 @@ class GameViewModelTest {
         expected = GameUiState.AnswerChecked(
             //question = "q1",
             choices = listOf(
-                /*ChoiceUiState.Correct(text = "c1"),
-                ChoiceUiState.NotAvailableToChoose(text = "c2"),
-                ChoiceUiState.NotAvailableToChoose(text = "c3"),
-                ChoiceUiState.Incorrect(text = "c4")*/
                 ChoiceUiState.Correct,
                 ChoiceUiState.NotAvailableToChoose,
                 ChoiceUiState.NotAvailableToChoose,
@@ -245,11 +208,16 @@ private class FakeRepository : GameRepository {
         userChoiceIndex = -1
         index++
 
-        if (isLastQuestion())
-            index = 0
+//        if (isLastQuestion())
+//            index = 0
     }
 
     override fun isLastQuestion(): Boolean {
         return index == list.size
+    }
+
+    var clearCalled = false
+    override fun clear() {
+        clearCalled = true
     }
 }

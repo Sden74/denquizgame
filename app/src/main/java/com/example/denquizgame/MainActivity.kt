@@ -13,6 +13,7 @@ class MainActivity() : AppCompatActivity(), Navigate {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
+
             navigateToGame()
         }
     }

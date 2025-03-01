@@ -26,15 +26,17 @@ class GameOverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val viewModel: GameOverViewModel =
             (requireActivity().application as QuizApp).gameOverViewModel
 
 
-        binding.statsTextView.updateOuter(viewModel.statsUiState())
-
         binding.newGameButton.setOnClickListener {
             (requireActivity() as NavigateToGame).navigateToGame()
         }
+
+        val uiState = viewModel.init(savedInstanceState == null)
+        uiState.show(binding.statsTextView)
     }
 
     override fun onDestroyView() {

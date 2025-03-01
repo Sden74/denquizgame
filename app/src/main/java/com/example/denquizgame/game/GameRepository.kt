@@ -9,9 +9,12 @@ interface GameRepository {
     fun check(): CorrectAndUserChoiceIndexes
     fun next()
     fun isLastQuestion(): Boolean
+    fun clear()
+
     // Хранилище данных репозитория(два QuestionAndChoices)
     class Base(
-
+        private val corrects: IntCache,
+        private val incorrects: IntCache,
         private val index: IntCache,
         private val userChoiceIndex: IntCache,
         private val list: List<QuestionAndChoices> = listOf(
@@ -48,33 +51,33 @@ interface GameRepository {
 
         // чек вернет обертку (CorrectAndUserChoiceIndexes) из юзерского и корректного индексов
         override fun check(): CorrectAndUserChoiceIndexes {
+            val correctIndex = questionAndChoices().correctIndex
+
+            if (userChoiceIndex.read() == correctIndex) {
+                corrects.save(corrects.read() + 1)
+            } else {
+                incorrects.save(incorrects.read() + 1)
+            }
+
             return CorrectAndUserChoiceIndexes(
-                correctIndex = questionAndChoices().correctIndex,
+                correctIndex = correctIndex,
                 //userChoiceIndex = userChoiceIndex
                 userChoiceIndex = userChoiceIndex.read()
             )
         }
 
         override fun next() {
-            //userChoiceIndex = -1
             userChoiceIndex.save(-1)
+            index.save(index.read() + 1)
 
-            /*
-            if (index + 1 == list.size)
-                index = 0
-            else
-                index++
-                */
-
-            index.save(if (isLastQuestion()) 0 else index.read() + 1)
-            /* if (isLastQuestion())
-                 index.save(0)
-             else
-                 index.save(index.read() + 1)
- */
         }
 
-        override fun isLastQuestion(): Boolean = index.read() + 1 == list.size
+        override fun isLastQuestion(): Boolean = index.read() == list.size
+
+        override fun clear() {
+            userChoiceIndex.save(-1)
+            index.save(0)
+        }
     }
 
 
