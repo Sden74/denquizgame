@@ -8,5 +8,9 @@ class GameOverViewModel(private val repository: StatsRepository) {
         val (corrects, incorrects) = repository.stats()
         return StatsUiState.Base(corrects, incorrects)
     }
+
+    fun clear() {
+        repository.clear()
+    }
 }
 

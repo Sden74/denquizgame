@@ -29,12 +29,14 @@ class GameOverFragment : Fragment() {
         val viewModel: GameOverViewModel =
             (requireActivity().application as QuizApp).gameOverViewModel
 
-
-        binding.statsTextView.updateOuter(viewModel.statsUiState())
+        if (savedInstanceState == null) //только на первый раз получаем статистику
+            binding.statsTextView.updateOuter(viewModel.statsUiState())
 
         binding.newGameButton.setOnClickListener {
+            //viewModel.clear()
             (requireActivity() as NavigateToGame).navigateToGame()
         }
+        viewModel.clear()
     }
 
     override fun onDestroyView() {

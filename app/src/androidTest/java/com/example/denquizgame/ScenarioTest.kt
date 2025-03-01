@@ -142,10 +142,11 @@ class ScenarioTest {
         //endregion
 
         //region 1 correct and 1 incorrect
-        gamePage = GamePage(
+        setup()
+        /*gamePage = GamePage(
             question = "What color is the blood?",
             choices = listOf("red", "blue", "green", "yellow")
-        )
+        )*/
 
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()
@@ -163,8 +164,8 @@ class ScenarioTest {
 
         gamePage.clickNext()
         gamePage = GamePage(
-            question = "What color is the sun?",
-            choices = listOf("yellow", "blue", "green", "red")
+            question = "What color is the grass?",
+            choices = listOf("green", "blue", "red", "yellow")
         )
 
         gamePage.assertAskedQuestionState()
@@ -196,10 +197,11 @@ class ScenarioTest {
         //endregion
 
         //region 2 corrects
-        gamePage = GamePage(
+        setup()
+        /*gamePage = GamePage(
             question = "What color is the crocodile?",
             choices = listOf("green", "blue", "yellow", "red")
-        )
+        )*/
 
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()
@@ -216,11 +218,14 @@ class ScenarioTest {
         gamePage.assertAnswerCheckedStateFirstIsCorrect()
 
         gamePage.clickNext()
-
         gamePage = GamePage(
+            question = "What color is the grass?",
+            choices = listOf("green", "blue", "red", "yellow")
+        )
+        /*gamePage = GamePage(
             question = "What color is the christmas tree?",
             choices = listOf("green", "blue", "yellow", "red")
-        )
+        )*/
 
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()

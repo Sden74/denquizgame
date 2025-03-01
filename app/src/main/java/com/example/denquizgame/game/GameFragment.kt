@@ -81,10 +81,12 @@ class GameFragment : Fragment() {
 interface Navigate : NavigateToGame, NavigateToGameOver {
     fun navigate(screen: Screen)
     override fun navigateToGameOver() {
+        //navigate(GameOverScreen()
         navigate(GameOverScreen)
     }
 
     override fun navigateToGame() {
+        //navigate(GameScreen())
         navigate(GameScreen)
     }
 }
