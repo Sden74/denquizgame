@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.denquizgame.QuizApp
 import com.example.denquizgame.Screen
 import com.example.denquizgame.databinding.FragmentGameBinding
+import com.example.denquizgame.di.ProvideViewModel
 import com.example.denquizgame.stats.GameOverScreen
 import com.example.denquizgame.stats.NavigateToGameOver
 
@@ -26,7 +26,8 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: GameViewModel = (requireActivity().application as QuizApp).gameViewModel
+        val viewModel: GameViewModel =
+            (requireActivity() as ProvideViewModel).makeViewModel(GameViewModel::class.java)
         lateinit var uiState: GameUiState
         val update: () -> Unit = {
             //todo (requireActivity() as NavigateToGameOver).navigateToGameOver()
