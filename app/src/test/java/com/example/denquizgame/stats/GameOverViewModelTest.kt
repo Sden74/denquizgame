@@ -8,7 +8,10 @@ class GameOverViewModelTest {
     @Test
     fun test() {
         val repository = FakeRepository()
-        val viewModel = GameOverViewModel(repository = repository)
+        val viewModel = GameOverViewModel(
+            repository = repository//,
+            //clearViewModel = TODO()
+        )
 
         assertEquals(StatsUiState.Base(2, 3), viewModel.init(isFirstRun = true))
         assertEquals(1, repository.clearCalledCount)

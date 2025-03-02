@@ -1,21 +1,17 @@
 package com.example.denquizgame.game
 
+import com.example.denquizgame.MyViewModel
+import com.example.denquizgame.di.ClearViewModel
 import com.example.denquizgame.views.choice.ChoiceUiState
 
-class GameViewModel(private val repository: GameRepository) {
-    /*init {
-        Log.d("sdv74", "GameViewModel")
-    }*/
+class GameViewModel(
+    private val clearViewModel: ClearViewModel,
+    private val repository: GameRepository
+) : MyViewModel {
     fun chooseFirst(): GameUiState {
         repository.saveUserChoice(0)
         val data = repository.questionAndChoices()
         return GameUiState.ChoiceMade(
-            //data.question,
-            /*listOf(
-                ChoiceUiState.NotAvailableToChoose(data.choices[0]),
-                ChoiceUiState.AvailableToChoose(data.choices[1]),
-                ChoiceUiState.AvailableToChoose(data.choices[2]),
-                ChoiceUiState.AvailableToChoose(data.choices[3])*/
             data.choices.mapIndexed { index, _ ->
                 if (index == 0)
                     ChoiceUiState.NotAvailableToChoose
@@ -139,6 +135,7 @@ class GameViewModel(private val repository: GameRepository) {
         repository.next()
         return if (repository.isLastQuestion()) {
             repository.clear()
+            clearViewModel.clear(GameViewModel::class.java)
             return GameUiState.Finish
         } else
             init()
