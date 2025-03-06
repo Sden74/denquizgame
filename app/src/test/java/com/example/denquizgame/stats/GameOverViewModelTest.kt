@@ -1,5 +1,6 @@
 package com.example.denquizgame.stats
 
+import com.example.denquizgame.game.FakeClearViewModel
 import com.example.denquizgame.views.stats.StatsUiState
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -9,8 +10,8 @@ class GameOverViewModelTest {
     fun test() {
         val repository = FakeRepository()
         val viewModel = GameOverViewModel(
-            repository = repository//,
-            //clearViewModel = TODO()
+            repository = repository,
+            clearViewModel = FakeClearViewModel()
         )
 
         assertEquals(StatsUiState.Base(2, 3), viewModel.init(isFirstRun = true))
