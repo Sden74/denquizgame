@@ -1,4 +1,4 @@
-package com.example.denquizgame
+package com.example.denquizgame.game
 
 data class QuestionAndChoices(
     val question: String,

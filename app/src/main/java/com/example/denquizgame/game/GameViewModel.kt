@@ -1,75 +1,104 @@
-package com.example.denquizgame
+package com.example.denquizgame.game
 
-class GameViewModel(private val repository: GameRepository) {
+import com.example.denquizgame.MyViewModel
+import com.example.denquizgame.di.ClearViewModel
+import com.example.denquizgame.views.choice.ChoiceUiState
+
+class GameViewModel(
+    private val clearViewModel: ClearViewModel,
+    private val repository: GameRepository
+) : MyViewModel {
     fun chooseFirst(): GameUiState {
         repository.saveUserChoice(0)
         val data = repository.questionAndChoices()
         return GameUiState.ChoiceMade(
-            data.question,
-            listOf(
-                ChoiceUiState.NotAvailableToChoose(data.choices[0]),
-                ChoiceUiState.AvailableToChoose(data.choices[1]),
-                ChoiceUiState.AvailableToChoose(data.choices[2]),
-                ChoiceUiState.AvailableToChoose(data.choices[3])
-            )
+            data.choices.mapIndexed { index, _ ->
+                if (index == 0)
+                    ChoiceUiState.NotAvailableToChoose
+                else
+                    ChoiceUiState.AvailableToChoose
+            }
         )
+
     }
 
     fun chooseSecond(): GameUiState {
         repository.saveUserChoice(1)
         val data = repository.questionAndChoices()
         return GameUiState.ChoiceMade(
-            data.question,
+            /*data.question,
             listOf(
                 ChoiceUiState.AvailableToChoose(data.choices[0]),
                 ChoiceUiState.NotAvailableToChoose(data.choices[1]),
                 ChoiceUiState.AvailableToChoose(data.choices[2]),
-                ChoiceUiState.AvailableToChoose(data.choices[3])
-            )
+                ChoiceUiState.AvailableToChoose(data.choices[3])*/
+            data.choices.mapIndexed { index, _ ->
+                if (index == 1)
+                    ChoiceUiState.NotAvailableToChoose
+                else
+                    ChoiceUiState.AvailableToChoose
+            }
         )
+
     }
 
     fun chooseThird(): GameUiState {
         repository.saveUserChoice(2)
         val data = repository.questionAndChoices()
         return GameUiState.ChoiceMade(
-            data.question,
+            /*data.question,
             listOf(
                 ChoiceUiState.AvailableToChoose(data.choices[0]),
                 ChoiceUiState.AvailableToChoose(data.choices[1]),
                 ChoiceUiState.NotAvailableToChoose(data.choices[2]),
-                ChoiceUiState.AvailableToChoose(data.choices[3])
-            )
+                ChoiceUiState.AvailableToChoose(data.choices[3])*/
+            data.choices.mapIndexed { index, _ ->
+                if (index == 2)
+                    ChoiceUiState.NotAvailableToChoose
+                else
+                    ChoiceUiState.AvailableToChoose
+            }
         )
+
     }
 
     fun chooseForth(): GameUiState {
         repository.saveUserChoice(3)
         val data = repository.questionAndChoices()
         return GameUiState.ChoiceMade(
-            data.question,
+            /*data.question,
             listOf(
                 ChoiceUiState.AvailableToChoose(data.choices[0]),
                 ChoiceUiState.AvailableToChoose(data.choices[1]),
                 ChoiceUiState.AvailableToChoose(data.choices[2]),
-                ChoiceUiState.NotAvailableToChoose(data.choices[3])
-            )
+                ChoiceUiState.NotAvailableToChoose(data.choices[3])*/
+            data.choices.mapIndexed { index, _ ->
+                if (index == 3)
+                    ChoiceUiState.NotAvailableToChoose
+                else
+                    ChoiceUiState.AvailableToChoose
+            }
         )
+        //)
     }
 
     fun check(): GameUiState {
         val data = repository.questionAndChoices()
         val correctAndUserChoiceIndexes = repository.check()
         return GameUiState.AnswerChecked(
-            data.question,
-            data.choices.mapIndexed { index, choice ->
+            //data.question,
+            //data.choices.mapIndexed { index, choice ->
+            data.choices.mapIndexed { index, _ ->
                 if (//correctAndUserChoiceIndexes.userChoiceIndex==index &&
                 //if(correctAndUserChoiceIndexes.userChoiceIndex==index &&
                     correctAndUserChoiceIndexes.correctIndex == index)
-                    ChoiceUiState.Correct(text = choice)
+                //ChoiceUiState.Correct(text = choice)
+                    ChoiceUiState.Correct
                 else if (correctAndUserChoiceIndexes.userChoiceIndex == index)
-                    ChoiceUiState.Incorrect(text = choice)
-                else ChoiceUiState.NotAvailableToChoose(text = choice)
+                //ChoiceUiState.Incorrect(text = choice)
+                    ChoiceUiState.Incorrect
+                //else ChoiceUiState.NotAvailableToChoose(text = choice)
+                else ChoiceUiState.NotAvailableToChoose
             }
 
             /*listOf(
@@ -104,15 +133,24 @@ class GameViewModel(private val repository: GameRepository) {
 
     fun next(): GameUiState {
         repository.next()
-        return init()
+        return if (repository.isLastQuestion()) {
+            repository.clear()
+            clearViewModel.clear(GameViewModel::class.java)
+            return GameUiState.Finish
+        } else
+            init()
+
     }
 
-    fun init(): GameUiState {
-        val data = repository.questionAndChoices()
-        return GameUiState.AskedQuestion(
-            data.question,
-            data.choices
-        )
+    fun init(firstRun: Boolean = true): GameUiState {
+        if (firstRun) {
+            val data = repository.questionAndChoices()
+            return GameUiState.AskedQuestion(
+                data.question,
+                data.choices
+            )
+        } else
+            return GameUiState.Empty
     }
 
 }
