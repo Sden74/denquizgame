@@ -51,10 +51,6 @@ class ScenarioTest {
      */
     @Test
     fun caseNumber2() {
-//        var gamePage = GamePage(
-//            question = "What color is the sky?",
-//            choices = listOf("blue", "green", "red", "yellow")
-//        )
 
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()
@@ -253,6 +249,12 @@ class ScenarioTest {
     @Test
     fun caseNumber4() {
         val loadPage = LoadPage()
+
+        loadPage.assertProgressState()
+        activityScenarioRule.scenario.recreate()
+        loadPage.assertProgressState()
+
+        loadPage.waitTillError()
 
         loadPage.assertErrorState()
         activityScenarioRule.scenario.recreate()
