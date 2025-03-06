@@ -1,5 +1,7 @@
 package com.example.denquizgame.game
 
+import com.example.denquizgame.MyViewModel
+import com.example.denquizgame.di.ClearViewModel
 import com.example.denquizgame.views.choice.ChoiceUiState
 import org.junit.Assert
 import org.junit.Before
@@ -13,10 +15,11 @@ class GameViewModelTest {
     fun setup() {
         repository = FakeRepository()
         viewModel = GameViewModel(
-            repository = repository//,
-            //clearViewModel = TODO()
+            repository = repository,
+            clearViewModel = FakeClearViewModel()
         )
     }
+
 
     /**
      * QGTC-01
@@ -223,4 +226,11 @@ private class FakeRepository : GameRepository {
     override fun clear() {
         clearCalled = true
     }
+}
+
+class FakeClearViewModel : ClearViewModel {
+    override fun clear(viewModelClass: Class<out MyViewModel>) {
+        TODO("Not yet implemented")
+    }
+
 }
