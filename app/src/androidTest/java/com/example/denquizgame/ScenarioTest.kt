@@ -3,6 +3,8 @@ package com.example.denquizgame
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.denquizgame.game.GamePage
+import com.example.denquizgame.load.LoadPage
+import com.example.denquizgame.stats.GameOverPage
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,9 +33,10 @@ class ScenarioTest {
     @Test
     fun caseNumber1() {
 
-        gamePage.assertAskedQuestionState()
-        activityScenarioRule.scenario.recreate()
-        gamePage.assertAskedQuestionState()
+//        gamePage.assertAskedQuestionState()
+//        activityScenarioRule.scenario.recreate()
+//        gamePage.assertAskedQuestionState()
+        caseNumber4()
 
         gamePage.clickFirstChoice()
         gamePage.assertFirstChoiceMadeState()
@@ -52,9 +55,10 @@ class ScenarioTest {
     @Test
     fun caseNumber2() {
 
-        gamePage.assertAskedQuestionState()
-        activityScenarioRule.scenario.recreate()
-        gamePage.assertAskedQuestionState()
+//        gamePage.assertAskedQuestionState()
+//        activityScenarioRule.scenario.recreate()
+//        gamePage.assertAskedQuestionState()
+        caseNumber4()
 
         gamePage.clickFirstChoice()
         gamePage.assertFirstChoiceMadeState()
@@ -87,9 +91,10 @@ class ScenarioTest {
     @Test
     fun caseNumber3() {
         //region 2 incorrect
-        gamePage.assertAskedQuestionState()
-        activityScenarioRule.scenario.recreate()
-        gamePage.assertAskedQuestionState()
+//        gamePage.assertAskedQuestionState()
+//        activityScenarioRule.scenario.recreate()
+//        gamePage.assertAskedQuestionState()
+        caseNumber4()
 
         gamePage.clickSecondChoice()
         gamePage.assertSecondChoiceMadeState()
@@ -139,7 +144,7 @@ class ScenarioTest {
             question = "What color is the blood?",
             choices = listOf("red", "blue", "green", "yellow")
         )*/
-
+        caseNumber4()
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()
         gamePage.assertAskedQuestionState()
@@ -194,7 +199,7 @@ class ScenarioTest {
             question = "What color is the crocodile?",
             choices = listOf("green", "blue", "yellow", "red")
         )*/
-
+        caseNumber4()
         gamePage.assertAskedQuestionState()
         activityScenarioRule.scenario.recreate()
         gamePage.assertAskedQuestionState()
