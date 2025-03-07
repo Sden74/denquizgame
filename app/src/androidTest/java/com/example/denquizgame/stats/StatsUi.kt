@@ -1,4 +1,4 @@
-package com.example.denquizgame
+package com.example.denquizgame.stats
 
 import android.view.View
 import android.widget.TextView
@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.example.denquizgame.R
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matcher
 
