@@ -12,6 +12,7 @@ import org.hamcrest.Matcher
 import java.util.concurrent.TimeoutException
 
 fun waitTillDisplayed(id: Int, timeout: Long) = waitForView(id, isDisplayed(), timeout)
+
 fun waitTillDoesntExist(id: Int, timeout: Long): ViewAction {
     return object : ViewAction {
         override fun getConstraints(): Matcher<View> {
