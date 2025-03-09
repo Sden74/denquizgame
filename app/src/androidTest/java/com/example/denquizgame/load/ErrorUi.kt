@@ -11,9 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.denquizgame.R
-import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
 
 class ErrorUi(
     containerIdMatcher: Matcher<View>,
