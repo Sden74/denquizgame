@@ -7,7 +7,7 @@ class LoadViewModelTest {
     @Test
     fun sameFragment() {
         val repository = FakeLoadRepository()
-        repository.expectResult(LoadResult.Succses)
+        repository.expectResult(LoadResult.Success)
         val observable = FakeUiObservable()
 
 
@@ -111,11 +111,10 @@ private class FakeFragment : (LoadUiState) -> Unit {
 
 }
 
-class FakeLoadRepository : LoadRepository {
+private class FakeLoadRepository : LoadRepository {
 
     private var loadResult: LoadResult? = null
-    private var loadResultCallback: (LoadResult) -> Unit) =
-    {}
+    private var loadResultCallback: (LoadResult) -> Unit = {}
 
     fun expectResult(loadResult: LoadResult) {
         this.loadResult = loadResult
@@ -130,7 +129,7 @@ class FakeLoadRepository : LoadRepository {
     }
 
     fun returnResult() {
-        loadResultCallback.invoke(loadResult)
+        loadResultCallback.invoke(loadResult!!)
     }
 
 }
@@ -146,7 +145,7 @@ private class FakeUiObservable : UiObservable {
         registerCalledCount++
         observerCached = observer
         if (uiStateCached != null) {
-            observerCached!!.invoke(uiStateCached)
+            observerCached!!.invoke(uiStateCached!!)
             uiStateCached = null
         }
     }
