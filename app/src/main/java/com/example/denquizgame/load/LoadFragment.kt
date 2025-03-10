@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.denquizgame.databinding.FragmentLoadBinding
 import com.example.denquizgame.di.ProvideViewModel
 
+
 class LoadFragment : Fragment() {
     private var _binding: FragmentLoadBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +42,7 @@ class LoadFragment : Fragment() {
         binding.retryButton.setOnClickListener {
             viewModel.load()
         }
-        viewModel.load(firstRun = savedInstanceState == null)
+        viewModel.load(isFirstRun = savedInstanceState == null)
     }
 
     override fun onResume() {
