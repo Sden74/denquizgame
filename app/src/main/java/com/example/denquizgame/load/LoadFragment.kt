@@ -41,7 +41,7 @@ class LoadFragment : Fragment() {
         binding.retryButton.setOnClickListener {
             viewModel.load()
         }
-        viewModel.load(firstRun = savedInstanceState == null)
+        viewModel.load(isFirstRun = savedInstanceState == null)
     }
 
     override fun onResume() {
