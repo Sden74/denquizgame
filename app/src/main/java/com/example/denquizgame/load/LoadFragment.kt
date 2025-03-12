@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.denquizgame.databinding.FragmentLoadBinding
 import com.example.denquizgame.di.ProvideViewModel
+import com.example.denquizgame.game.NavigateToGame
 
 class LoadFragment : Fragment() {
     private var _binding: FragmentLoadBinding? = null
@@ -27,6 +28,7 @@ class LoadFragment : Fragment() {
             binding.retryButton,
             binding.progressBar
         )
+        uiState.navigate((requireActivity() as NavigateToGame))
     }
 
     private lateinit var viewModel: LoadViewModel
